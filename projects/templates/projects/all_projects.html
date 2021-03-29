@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style type="text/css">
+table {
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+th {
+  cursor: pointer;
+}
+
+th, td {
+  text-align: left;
+  padding: 16px;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2
+}
+</style>
+
+
+<br>
+<br><br>
+<h1>My Project</h1>
+<div class="jumbotron">
+
+<table id="myTable">
+  <tr>
+    <th onclick="sortTable(0)">Title</th>
+    <th onclick="sortTable(1)">Created by</th>
+
+    <th onclick="sortTable(2)">Created</th>
+  </tr>
+  {% for project in projects %}
+  <tr>
+
+<td>    {{project.title}} </td>
+<td>    {{project.user.username}} </td>
+<td>    {{project.description}} </td>
+<td>{{project.created}}</td>
+
+  </tr>
+
+  {% endfor %}
+
+
+<script type="text/javascript">
+  function sortTable(n) {
+    var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+    table = document.getElementById("myTable");
+    switching = true;
+
+    dir = "asc";
+
+    while (switching) {
+
+      switching = false;
+      rows = table.rows;
+
+      for (i = 1; i < (rows.length - 1); i++) {
+
+        shouldSwitch = false;
+
+        x = rows[i].getElementsByTagName("TD")[n];
+        y = rows[i + 1].getElementsByTagName("TD")[n];
+
+        if (dir == "asc") {
+          if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+
+            shouldSwitch= true;
+            break;
+          }
+        } else if (dir == "desc") {
+          if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+
+            shouldSwitch = true;
+            break;
+          }
+        }
+      }
+      if (shouldSwitch) {
+
+        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+        switching = true;
+
+        switchcount ++;
+      } else {
+
+        if (switchcount == 0 && dir == "asc") {
+          dir = "desc";
+          switching = true;
+        }
+      }
+    }
+  }
+  </script>
+
+
+</table>
+
+
+
+</div>
+{% endblock %}

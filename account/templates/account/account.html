@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<br>
+<br><br>
+<div class="jumbotron">
+Username : {{user.username}}<br>
+email : {{user.email}}<br>
+first_name : {{user.first_name}}<br>
+last_name : {{user.last_name}}<br>
+location : {{user.userprofileinfo.location}}<br>
+mobile number : {{user.userprofileinfo.mobile_number}}
+
+</div>
+{% endblock %}
